@@ -1,9 +1,16 @@
-import { Category } from "../models/";
+import { Category } from "../../config/database";
 
 class categoryController {
-  async get(req, res) {
-    const categories = await Category.findAll();
-    console.log("Catégories :", categories);
+  get(req, res) {
+    Category.findAll().then(categories => {
+      res.render("createArticle", { categories: categories });
+    });
+  }
+
+  getForArticleList(req, res){
+    Category.findAll().then(categories => {
+      res.render("listArticle", { categories: categories });
+    });
   }
 }
 
