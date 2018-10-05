@@ -1,0 +1,26 @@
+<div class="container">
+    <h1> Editer un article </h1>
+    <form method="post">
+
+        <label for="title">Titre </label>
+        <input type="text" class="form-control" value="{{article.title}}" name="title">
+        <textarea name="body" class="form-control" aria-label="With textarea" onkeyup="characterCounter(this.value)" maxlength="200">{{article.body}}</textarea>
+        <p id="character-counter"></p>
+        <div class="category-selector">
+            <p>Catégorie : </p>
+            {{#each categories}}
+            <input type="checkbox" name="category" value="{{this.id}}">
+            <label for="category">{{this.name}}</label>
+            {{/each}}
+        </div>
+        <div class="draft">
+            <label for="isPrivate">Brouillon</label>
+            <input type="checkbox" data-val="true" value="true" name="isPrivate">
+        </div>
+        <button type="submit" class="btn btn-primary">Editer un article</button>
+
+    </form>
+
+
+
+</div>

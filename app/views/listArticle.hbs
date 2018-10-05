@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Liste d'articles</title>
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="layout">
-            <div class="category-filters">
-                <p>Trier par : </p>
-                {{#each category}}
-                <a href="/articles/{{this.name}}">
-                    <button type="button" class="btn btn-light">{{this.name}}</button>
-                </a>
-                {{/each}}
-                </form>
-            </div>
-        </div>
-
-        <div class="layout">
-            {{#each article}}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{this.title}}</h5>
-                    <p> {{this.body}}</p>
-                    <div class="article--footer">
-
-                        <a class="read-more" href="/article/{{this.id}}"> Voir plus</a>
-
-                    </div>
-                </div>
-            </div>
+    <div class="layout">
+        <div class="category-filters">
+            <p>Trier par : </p>
+            {{#each category}}
+            <a href="/articles/{{this.name}}">
+                <button type="button" class="btn btn-light">{{this.name}}</button>
+            </a>
             {{/each}}
+             <a href="/articles">
+                <button type="button" class="btn btn-light">Aucun filtre </button>
+            </a>
         </div>
     </div>
-</body>
 
+    <div class="layout">
+        {{#each article}}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p> {{this.body}}</p>
+                <div class="article--footer">
+                    <div class="article--action">
+                        <a href="/article/{{this.id}}/edit"> Editer </a> |
+                        <a href="/article/supprimer/{{this.id}}">Supprimer</a> </div>
 
+                    <a class="read-more" href="/article/{{this.id}}"> Voir plus</a>
 
-</html>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

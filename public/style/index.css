@@ -41,8 +41,20 @@ body {
 
 .article--footer{
     text-align: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+.article--section > a{
+    text-decoration: none;
+    color: #000;
 }
 
 .publication-date{
     font-style: italic;
+}
+
+.comment-card{
+    width: 75%;
+    padding: 1em;
 }

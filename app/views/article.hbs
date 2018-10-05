@@ -14,9 +14,21 @@
         <h1>{{this.title}}</h1>
         <p class="publication-date">Publié le {{this.publicationDate }}</p>
         <p>{{this.body}}</p>
+        <a href="/article/modifier/{{this.id}}"> Editer </a> |
+        <a href="/article/supprimer/{{this.id}}">Supprimer</a>
         {{/each}}
+        <p>Commentaires :</p>
+        {{#each comment}}
+        <div class="card comment-card">
+            <p>posté le {{this.publicationDate}} par <i>anonyme</i></p>
+            <p>{{this.body}}</p>
+        </div>
+        {{/each}}
+        <form method="post">
+            <textarea name="body" class="form-control" aria-label="With textarea" maxlength="200"></textarea>
+            <button type="submit" class="btn btn-dark">Commenter</button>
+        </form>
     </div>
-
 </body>
 
 </html>
