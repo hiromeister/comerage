@@ -7,7 +7,7 @@ class commentController {
       publicationDate: new Date(),
       body,
       Article_id: req.params.id,
-      User_id: 1
+      User_id: req.user.id
     });
 
     res.redirect('back');

@@ -1,14 +1,13 @@
+{{setVar "userId" user.id }}
 <div class="container">
-
     <div class="layout">
         <div class="category-filters">
-            <p>Trier par : </p>
             {{#each category}}
             <a href="/articles/{{this.name}}">
                 <button type="button" class="btn btn-light">{{this.name}}</button>
             </a>
             {{/each}}
-             <a href="/articles">
+            <a href="/articles">
                 <button type="button" class="btn btn-light">Aucun filtre </button>
             </a>
         </div>
@@ -21,10 +20,11 @@
                 <h5 class="card-title">{{this.title}}</h5>
                 <p> {{this.body}}</p>
                 <div class="article--footer">
+                    {{#ifCond ../userId user_id}}
                     <div class="article--action">
                         <a href="/article/{{this.id}}/edit"> Editer </a> |
                         <a href="/article/supprimer/{{this.id}}">Supprimer</a> </div>
-
+                    {{/ifCond}}
                     <a class="read-more" href="/article/{{this.id}}"> Voir plus</a>
 
                 </div>

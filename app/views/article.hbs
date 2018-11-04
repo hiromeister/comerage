@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-</head>
-
+{{setVar "userId" user.id }}
 <body>
     <div class="layout container">
         {{#each article}}
         <h1>{{this.title}}</h1>
         <p class="publication-date">Publié le {{this.publicationDate }}</p>
-        <p>{{this.body}}</p>
+        <p>{{this.body}}</p
+        {{#ifCond ../userId user_id}}
         <a href="/article/modifier/{{this.id}}"> Editer </a> |
         <a href="/article/supprimer/{{this.id}}">Supprimer</a>
+        {{/ifCond}}
         {{/each}}
         <p>Commentaires :</p>
         {{#each comment}}
@@ -30,5 +23,3 @@
         </form>
     </div>
 </body>
-
-</html>

@@ -1,4 +1,5 @@
 <div class="container">
+    <p> tac tac {{user.username}} t</p>
     <h1> Créer un article </h1>
     <form method="post">
         <label for="title">Titre </label>
@@ -11,8 +12,6 @@
             <input type="checkbox" name="category" value="{{this.id}}">
             <label for="category">{{this.name}}</label>
             {{/each}}
-
-
         </div>
         <div class="draft">
             <label for="isPrivate">Brouillon</label>

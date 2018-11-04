@@ -13,7 +13,7 @@ class articleController {
           const article = await Article.create({
             title,
             body,
-            userId: 1,
+            userId: req.user.body,
             isPrivate: false,
             publicationDate: new Date()
           });
@@ -28,7 +28,7 @@ class articleController {
           const article = await Article.create({
             title,
             body,
-            userId: 1,
+            userId: req.user.id,
             isPrivate,
             publicationDate: new Date()
           });
@@ -40,7 +40,6 @@ class articleController {
             });
           }
         }
-
         res.render("createArticle");
       } catch (error) {
         console.log("error insert article");
@@ -54,7 +53,8 @@ class articleController {
 
     res.render("listArticle", {
       article: articles,
-      category: categories
+      category: categories,
+      user: req.user
     });
   }
 
@@ -67,7 +67,11 @@ class articleController {
       where: { Article_id: req.params.id }
     });
 
-    res.render("article", { article: article, comment: comments });
+    res.render("article", {
+      article: article,
+      comment: comments,
+      user: req.user
+    });
   }
 
   async getArticlesByCategory(req, res) {
@@ -82,21 +86,34 @@ class articleController {
         }
       ]
     });
-    res.render("listArticle", { article: articles, category: categories });
+    res.render("listArticle", {
+      article: articles,
+      category: categories,
+      user: req.user
+    });
   }
 
   async delete(req, res) {
-    const articl_category = await ArticleCategory.destroy({
+
+
+
+    ArticleCategory.destroy({
       where: {
         Article_id: req.params.id
       }
     });
-    const article = await Article.destroy({
+
+    Article.destroy({
       where: {
         id: req.params.id
       }
     });
 
+    Comments.destroy({
+      where: {
+        Article_id: req.params.id
+      }
+    })
     res.redirect("/articles");
   }
 
@@ -109,7 +126,11 @@ class articleController {
 
     const category = await Category.findAll();
 
-    res.render("editArticle", { article, categories: category });
+    res.render("editArticle", {
+      article,
+      categories: category,
+      user: req.user
+    });
   }
 
   edit() {
@@ -117,54 +138,62 @@ class articleController {
       const { title, body, category, isPrivate } = req.body;
       try {
         if (!isPrivate) {
-          const article = await Article.update({
-            title,
-            body,
-            userId: 1,
-            isPrivate: false,
-            publicationDate: new Date(),
-          },
-          {
-            where: {
-              id: req.params.id
+          const article = await Article.update(
+            {
+              title,
+              body,
+              userId: 1,
+              isPrivate: false,
+              publicationDate: new Date()
+            },
+            {
+              where: {
+                id: req.params.id
+              }
             }
-          });
+          );
 
           for (let i = 0; i < category.length; i++) {
-            await ArticleCategory.update({
-              Article_id: req.params.id,
-              Category_id: category[i]
-            },
-          {
-            where: {
-              Article_id: req.params.id 
-            }
-          });
+            await ArticleCategory.update(
+              {
+                Article_id: req.params.id,
+                Category_id: category[i]
+              },
+              {
+                where: {
+                  Article_id: req.params.id
+                }
+              }
+            );
           }
         } else {
-          const article = await Article.update({
-            title,
-            body,
-            userId: 1,
-            isPrivate,
-            publicationDate: new Date()
-          },
-        {
-          where: {
-            id: req.params.id
-          }
-        });
+          const article = await Article.update(
+            {
+              title,
+              body,
+              userId: 1,
+              isPrivate,
+              publicationDate: new Date()
+            },
+            {
+              where: {
+                id: req.params.id
+              }
+            }
+          );
 
           for (let i = 0; i < category.length; i++) {
-            await ArticleCategory.update({
-              Article_id: req.params.id,
-              Category_id: category[i]
-            },
-          {
-            where: {
-              Article_id: req.params.id
-            }
-          });
+            await ArticleCategory.update(
+              {
+                Article_id: req.params.id,
+                Category_id: category[i]
+              },
+              {
+                where: {
+                  Article_id: req.params.id
+                }
+              }
+            );
           }
         }
 

@@ -14,7 +14,7 @@ module.exports = (sequelize, type) => {
       isPrivate: {
         type: type.BOOLEAN
       },
-      userId:{
+      user_id:{
         type: type.INTEGER
       }
     },

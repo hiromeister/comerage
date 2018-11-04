@@ -32,7 +32,7 @@ const Comments = CommentModel(db, Sequelize);
 
 Article.belongsToMany(Category, { through: ArticleCategory, unique: false });
 Category.belongsToMany(Article, { through: ArticleCategory, unique: false });
-Article.hasOne(User);
+Article.belongsTo(User);
 Comments.belongsTo(Article);
 Comments.belongsTo(User);
 
